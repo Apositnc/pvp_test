@@ -3,11 +3,11 @@
 
 #include<graphics.h>
 
-class Scence
+class Scene
 {
 public:
-	Scence() = default;
-	~Scence() = default;
+	Scene() = default;
+	~Scene() = default;
 
 	//Ðéº¯Êý 
 	virtual void on_enter() {}

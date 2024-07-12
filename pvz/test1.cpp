@@ -1,13 +1,31 @@
 #include<scene.h>
 #include<menu_scene.h>
+#include"game_scene.h"
+#include"scene_manager.h"
+#include"selector_scene.h"
+
+#include<graphics.h>
+
+Scene* menu_scene = nullptr;
+Scene* game_scene = nullptr;
+Scene* selector_scene = nullptr;
+
+SceneManager scene_manager;
 
 int main() {
 	ExMessage msg;
 	const int FPS = 60;
 
-	initgraph(1280, 720);
+	initgraph(1280, 720,EW_SHOWCONSOLE);
 
 	BeginBatchDraw();
+
+	menu_scene = new MenuScene();
+	game_scene = new GameScene();
+	selector_scene = new SelectorScene();
+
+	scene_manager.set_cruuent_scene(menu_scene);
+
 
 	while (true)
 	{
@@ -15,11 +33,13 @@ int main() {
 
 		while (peekmessage(&msg))
 		{
-
+			scene_manager.on_input(msg);
 		}
 
-		cleardevice();
+		scene_manager.on_update();
 
+		cleardevice();
+		scene_manager.on_draw();
 		FlushBatchDraw();
 
 		DWORD frame_end_time = GetTickCount();
